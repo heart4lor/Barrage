@@ -1,3 +1,4 @@
+
 <?php
 /**
  * Created by PhpStorm.
@@ -6,9 +7,16 @@
  * Time: 20:09
  */
 
-require_once ('config.php');    // 引入文件
+$mydb = new mysqli('localhost', 'root', 'isnn926799', 'danmu');
 
-$con = mysql_connect(HOST,USER,PASSWORD);  // 连接数据库  不需要改动
-mysql_select_db('barrage');    //数据库 barrage
-mysql_query("set names utf8");  // UTF-8
-
+$sql = "INSERT INTO danmu (message) VALUES ('$_POST[message]')";
+if ($mydb->query($sql) == TRUE)
+{
+    require_once ('successfully.php');
+}
+else
+{
+    require_once ('failed.php');
+}
+$mydb->close();
+?>
